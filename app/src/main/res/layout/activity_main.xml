@@ -17,8 +17,17 @@
         android:id="@+id/btnRecord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Начать запись"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="52dp"
+        android:text="Начать запись"
         tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/btnLive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="3dp"
+        android:text="Начать трансляцию"
+        tools:ignore="HardcodedText"/>
 </RelativeLayout>
