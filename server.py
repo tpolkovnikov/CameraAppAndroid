@@ -1,15 +1,24 @@
+import os
 from flask import Flask, Response, request, jsonify
 import cv2
-import os
 import jwt
 import datetime
 from functools import wraps
 from threading import Thread, Event
+from werkzeug.security import generate_password_hash, check_password_hash
+from dotenv import load_dotenv
+
+# Загрузка переменных окружения из файла .env
+load_dotenv()
 
 app = Flask(__name__)
 
-# Secret key for JWT
-app.config['SECRET_KEY'] = 'your_secret_key'
+# Секретный ключ из переменных окружения
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'default_secret_key')
+
+# Использование хэшированного пароля
+# Лучше хранить такие данные в базе данных, но для примера хэшируем пароль заранее
+hashed_password = generate_password_hash("password")  # Здесь создается хэш пароля "password"
 
 # Global variables for video broadcasting and recording
 camera = cv2.VideoCapture(0)
@@ -41,7 +50,8 @@ def login():
     if not auth or not auth.get('username') or not auth.get('password'):
         return jsonify({'message': 'Missing username or password!'}), 400
 
-    if auth['username'] == 'admin' and auth['password'] == 'password':
+    # Проверка хэшированного пароля
+    if auth['username'] == 'admin' and check_password_hash(hashed_password, auth['password']):
         token = jwt.encode({
             'user': auth['username'],
             'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=1)
@@ -124,9 +134,6 @@ def video_feed():
                         mimetype='multipart/x-mixed-replace; boundary=frame')
     else:
         return "Broadcast not active", 400
-
-
-
 
 if __name__ == '__main__':
     try:
