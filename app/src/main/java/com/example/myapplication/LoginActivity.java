@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
     private void login(String username, String password) {
         new Thread(() -> {
             try {
-                URL url = new URL("http://your-server-ip:5000/login");
+                URL url = new URL("http://192.168.1.103:5000/login");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("POST");
                 connection.setRequestProperty("Content-Type", "application/json");

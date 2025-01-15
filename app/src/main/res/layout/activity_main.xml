@@ -1,33 +1,52 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:orientation="vertical"
+    android:padding="16dp">
 
-    <VideoView
-        android:id="@+id/videoView"
+    <!--
+    <ImageView
+        android:id="@+id/video_feed_image"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"/>
+        android:layout_height="wrap_content"
+        android:scaleType="fitCenter"
+        />
+    -->
+
+    <!-- ExoPlayer View for Video Stream -->
+    <com.google.android.exoplayer2.ui.PlayerView
+        android:id="@+id/playerView"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Control Buttons -->
+    <Button
+        android:id="@+id/start_broadcast_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Start Broadcast" />
 
     <Button
-        android:id="@+id/btnRecord"
-        android:layout_width="wrap_content"
+        android:id="@+id/stop_broadcast_button"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="52dp"
-        android:text="Начать запись"
-        tools:ignore="HardcodedText" />
+        android:text="Stop Broadcast"
+        android:layout_marginTop="8dp" />
 
     <Button
-        android:id="@+id/btnLive"
-        android:layout_width="wrap_content"
+        android:id="@+id/start_recording_button"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="3dp"
-        android:text="Начать трансляцию"
-        tools:ignore="HardcodedText"/>
-</RelativeLayout>
+        android:text="Start Recording"
+        android:layout_marginTop="8dp" />
+
+    <Button
+        android:id="@+id/stop_recording_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Stop Recording"
+        android:layout_marginTop="8dp" />
+</LinearLayout>
