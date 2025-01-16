@@ -18,7 +18,7 @@ app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'default_secret_key')
 
 # Использование хэшированного пароля
 # Лучше хранить такие данные в базе данных, но для примера хэшируем пароль заранее
-hashed_password = generate_password_hash("password")  # Здесь создается хэш пароля "password"
+hashed_password = generate_password_hash(os.getenv('PASSWORD', 'password'))  # Здесь создается хэш пароля из .env
 
 # Global variables for video broadcasting and recording
 camera = cv2.VideoCapture(0)
@@ -50,8 +50,8 @@ def login():
     if not auth or not auth.get('username') or not auth.get('password'):
         return jsonify({'message': 'Missing username or password!'}), 400
 
-    # Проверка хэшированного пароля
-    if auth['username'] == 'admin' and check_password_hash(hashed_password, auth['password']):
+    # Проверка хэшированного пароля с данными из .env
+    if auth['username'] == os.getenv('USERNAME', 'admin') and check_password_hash(hashed_password, auth['password']):
         token = jwt.encode({
             'user': auth['username'],
             'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=1)
